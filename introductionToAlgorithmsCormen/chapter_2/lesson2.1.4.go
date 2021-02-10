@@ -25,52 +25,33 @@ func bitAdd(a, b, carry byte) (byte, byte) {
 }
 
 func bitSum(bitArrA, bitArrB []byte) []byte {
-	lowLen := 0
-	highLen := 0
 	var highArr []byte
 	var lowArr []byte
 
 	if len(bitArrA) >= len(bitArrB) {
-		highLen = len(bitArrA)
-		lowLen = len(bitArrB)
 		highArr = bitArrA
 		lowArr = bitArrB
 	} else {
-		highLen = len(bitArrB)
-		lowLen = len(bitArrA)
 		highArr = bitArrB
 		lowArr = bitArrA
 	}
 
-	bitArrC := make([]byte, highLen+1)
+	bitArrC := make([]byte, len(highArr)+1)
 
 	curAdd, curCarry := byte(0), byte(0)
 
-	if highLen == lowLen {
-		for i := highLen - 1; i >= 0; i-- {
-			curAdd, curCarry = bitAdd(bitArrA[i], bitArrB[i], curCarry)
+	for i := len(lowArr) - 1; i >= 0; i-- {
+		curAdd, curCarry = bitAdd(highArr[i+len(highArr)-len(lowArr)], lowArr[i], curCarry)
 
-			bitArrC[i+1] = curAdd
-		}
-	} else {
-		for i := lowLen - 1; i >= 0; i-- {
-			curAdd, curCarry = bitAdd(highArr[i+highLen-lowLen], lowArr[i], curCarry)
+		bitArrC[i+len(bitArrC)-len(lowArr)] = curAdd
+	}
 
-			bitArrC[i+1] = curAdd
-		}
-
-		for i := highLen - lowLen - 1; i >= 0; i-- {
+	if len(highArr) != len(lowArr) {
+		for i := len(highArr) - len(lowArr) - 1; i >= 0; i-- {
 			curAdd, curCarry = bitAdd(highArr[i], byte(0), curCarry)
 
 			bitArrC[i+1] = curAdd
-
-			if curCarry == 1 && i == 0 {
-				curCarry = 1
-			} else {
-				curCarry = 0
-			}
 		}
-
 	}
 
 	bitArrC[0] = curCarry
@@ -79,8 +60,8 @@ func bitSum(bitArrA, bitArrB []byte) []byte {
 }
 
 func main() {
-	bitArrA := []byte{1, 0, 1, 1, 0, 1}
-	bitArrB := []byte{1, 1, 1, 1, 1}
+	bitArrA := []byte{1, 1, 0, 0, 0, 0}
+	bitArrB := []byte{0, 0, 0, 1, 1, 1, 1, 0}
 
 	fmt.Println("First bit arr:", bitArrA)
 	fmt.Println("First bit arr:", bitArrB)
