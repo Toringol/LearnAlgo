@@ -34,17 +34,20 @@ package main
 import "fmt"
 
 func twoSum(nums []int, target int) []int {
-	for i, firstNum := range nums {
-		for j, secondNum := range nums {
-			if i != j && (firstNum+secondNum) == target {
-				return []int{i, j}
-			}
+	numsIdxMap := make(map[int]int)
+
+	for i, num := range nums {
+		targetTerm := target - num
+		if secondIdx, ok := numsIdxMap[targetTerm]; ok {
+			return []int{i, secondIdx}
 		}
+		numsIdxMap[num] = i
 	}
+
 	return nil
 }
 
 func main() {
-	nums := []int{3, 3}
-	fmt.Println(twoSum(nums, 6))
+	nums := []int{3, 1, 3}
+	fmt.Println(twoSum(nums, 4))
 }
