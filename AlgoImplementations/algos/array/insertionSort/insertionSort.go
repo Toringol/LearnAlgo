@@ -13,6 +13,7 @@ func insertionSort(numbers []int) {
 		}
 	}
 }
+
 func main() {
 	numbers := []int{3, 1, 2, 5, 4}
 
