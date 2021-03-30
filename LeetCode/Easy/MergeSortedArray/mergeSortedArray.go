@@ -29,20 +29,15 @@ package main
 import "fmt"
 
 func merge(nums1 []int, m int, nums2 []int, n int) {
-	if n == 0 {
-		return
-	}
-
 	iterNums1 := 0
 	iterNums2 := 0
 
 	nums1Cap := m + n
 
-	for iterNums1 != nums1Cap {
-		fmt.Println(iterNums1, iterNums2)
-		if nums2[iterNums2] < nums1[iterNums1] || iterNums1 == m {
-			for i := iterNums1; i < 2*m-iterNums1-1; i++ {
-				nums1[i+1] = nums1[i]
+	for iterNums1 != nums1Cap && iterNums2 != n {
+		if nums2[iterNums2] <= nums1[iterNums1] || iterNums1 == m {
+			for i := 0; i < m-iterNums1; i++ {
+				nums1[m-i] = nums1[m-i-1]
 			}
 
 			nums1[iterNums1] = nums2[iterNums2]
@@ -57,7 +52,7 @@ func merge(nums1 []int, m int, nums2 []int, n int) {
 func main() {
 	nums1 := []int{2, 0}
 	nums2 := []int{1}
-	m, n := 2, 1
+	m, n := 1, 1
 
 	merge(nums1, m, nums2, n)
 

@@ -8,7 +8,7 @@
 - Implement Binary Search (+)
 - Implement Insertion Sort (+)
 
-# Plan (27 Mar 2021)
+# Plan (30 Mar 2021)
 
 - Implement BST (+)
 - Implement HashTable (using open adressing)
