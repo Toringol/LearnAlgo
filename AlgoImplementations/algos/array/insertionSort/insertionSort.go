@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func insertionSort(numbers []int) {
-	if len(numbers) < 1 {
+	if len(numbers) <= 1 {
 		return
 	}
 
